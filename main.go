@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func main() {
-	// На литkоде 0 мс, иногда бывает 13 выдает
+	// Сложность О(n)
 
 	l1 := &ListNode{Val: 2}
 	l1.Next = &ListNode{Val: 3}
