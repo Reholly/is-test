@@ -3,8 +3,6 @@ package main
 import "fmt"
 
 func main() {
-	// Сложность О(n)
-
 	l1 := &ListNode{Val: 2}
 	l1.Next = &ListNode{Val: 3}
 
@@ -31,6 +29,7 @@ type ListNode struct {
 	Next *ListNode
 }
 
+// Сложность О(n)
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	var carry int = 0
 
