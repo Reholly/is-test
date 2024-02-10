@@ -3,19 +3,21 @@ package main
 import "fmt"
 
 func main() {
-	l1 := &ListNode{Val: 2}
-	l1.Next = &ListNode{Val: 3}
+	l1 := ConvertToLinkedList(243)
+	l2 := ConvertToLinkedList(564)
 
-	l2 := &ListNode{Val: 1}
-	l2.Next = &ListNode{Val: 9}
-
-	result := addTwoNumbers(l1, l2)
+	result := AddTwoNumbers(l1, l2)
 	result = Reverse(result)
 
 	for result != nil {
 		fmt.Print(result.Val)
 		result = result.Next
 	}
+}
+
+type ListNode struct {
+	Val  int
+	Next *ListNode
 }
 
 func Reverse(list *ListNode) *ListNode {
@@ -34,17 +36,25 @@ func Reverse(list *ListNode) *ListNode {
 	return previousNode
 }
 
-type ListNode struct {
-	Val  int
-	Next *ListNode
+func ConvertToLinkedList(num int) *ListNode {
+	current := &ListNode{}
+	head := current
+
+	for num > 0 {
+		current.Next = &ListNode{Val: num % 10}
+		current = current.Next
+		num /= 10
+	}
+
+	return head.Next
 }
 
 // Сложность О(n)
-func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
+func AddTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	var carry int = 0
 
-	var cur *ListNode = &ListNode{}
-	var head *ListNode = cur
+	var currentNode *ListNode = &ListNode{}
+	var head *ListNode = currentNode
 
 	for l1 != nil && l2 != nil {
 
@@ -52,29 +62,29 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 
 		carry = sum / 10
 
-		cur.Next = &ListNode{Val: sum % 10}
-		cur = cur.Next
+		currentNode.Next = &ListNode{Val: sum % 10}
+		currentNode = currentNode.Next
 		l1 = l1.Next
 		l2 = l2.Next
 	}
 
-	carry, cur = fill(l1, carry, cur)
-	carry, cur = fill(l2, carry, cur)
+	carry, currentNode = Fill(l1, currentNode, carry)
+	carry, currentNode = Fill(l2, currentNode, carry)
 
 	if carry > 0 {
-		cur.Next = &ListNode{Val: carry}
+		currentNode.Next = &ListNode{Val: carry}
 	}
 
 	return head.Next
 }
 
-func fill(l1 *ListNode, carry int, cur *ListNode) (int, *ListNode) {
-	for l1 != nil {
-		sum := l1.Val + carry
+func Fill(list *ListNode, cur *ListNode, carry int) (int, *ListNode) {
+	for list != nil {
+		sum := list.Val + carry
 		cur.Next = &ListNode{Val: sum % 10}
 		cur = cur.Next
 		carry = sum / 10
-		l1 = l1.Next
+		list = list.Next
 	}
 	return carry, cur
 }
