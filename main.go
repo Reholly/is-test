@@ -9,19 +9,29 @@ func main() {
 	l2 := &ListNode{Val: 1}
 	l2.Next = &ListNode{Val: 9}
 
-	result := addTwoNumbers(l1, l2)
+	list := addTwoNumbers(l1, l2)
+	list = Reverse(list)
 
-	var output []int
+	for list != nil {
+		fmt.Print(list.Val)
+		list = list.Next
+	}
+}
 
-	for result != nil {
-		output = append(output, result.Val)
-		result = result.Next
+func Reverse(list *ListNode) *ListNode {
+	var previousNode *ListNode
+
+	currentNode := list
+	nextNode := currentNode.Next
+
+	for nextNode != nil {
+		nextNode = currentNode.Next
+		currentNode.Next = previousNode
+		previousNode = currentNode
+		currentNode = nextNode
 	}
 
-	for i := len(output) - 1; i >= 0; i-- {
-		fmt.Print(output[i])
-	}
-
+	return previousNode
 }
 
 type ListNode struct {
