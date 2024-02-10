@@ -9,12 +9,12 @@ func main() {
 	l2 := &ListNode{Val: 1}
 	l2.Next = &ListNode{Val: 9}
 
-	list := addTwoNumbers(l1, l2)
-	list = Reverse(list)
+	result := addTwoNumbers(l1, l2)
+	result = Reverse(result)
 
-	for list != nil {
-		fmt.Print(list.Val)
-		list = list.Next
+	for result != nil {
+		fmt.Print(result.Val)
+		result = result.Next
 	}
 }
 
